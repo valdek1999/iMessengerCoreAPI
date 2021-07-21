@@ -1,3 +1,5 @@
+using iMessengerCoreAPI.Models;
+using iMessengerCoreAPI.Repository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -32,6 +34,7 @@ namespace iMessengerCoreAPI
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "iMessengerCoreAPI", Version = "v1" });
             });
+            services.AddScoped<IRepository<RGDialogsClients>, RepositoryDialogs>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
