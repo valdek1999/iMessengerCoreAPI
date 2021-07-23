@@ -15,9 +15,5 @@ namespace iMessengerCoreAPI.Repository
         void Delete(TEntity entity);
 
         void Update(TEntity entity);
-
-        TEntity FindById(int Id);
-
-        IEnumerable<TEntity> FindAll(Func<TEntity, bool> predicate);
     }
 }

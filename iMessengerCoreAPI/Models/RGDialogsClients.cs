@@ -5,16 +5,36 @@ using System.Threading.Tasks;
 
 namespace iMessengerCoreAPI.Models
 {
+    /// <summary>
+    /// Cущность RGDialogsClients. 
+    /// Она предназначена для хранения информации о том, какие пользователи взаимодействуют в рамках одного диалога.
+    /// </summary>
     public class RGDialogsClients
     {
+        /// <summary>
+        /// Уникальный GUID связи диалога с клиентом
+        /// </summary>
         public Guid IDUnique { get; set; }
 
+        /// <summary>
+        /// GUID диалога
+        /// </summary>
         public Guid IDRGDialog { get; set; }
 
+        /// <summary>
+        /// GUID клиента
+        /// </summary>
         public Guid IDClient { get; set; }
 
+        /// <summary>
+        /// Дата создания диалога
+        /// </summary>
         public DateTime? DateEvent { get; set; }
 
+        /// <summary>
+        /// Позоволяет получить набор сущностей, с котороыми можно производить операции.
+        /// </summary>
+        /// <returns></returns>
         public List<RGDialogsClients> Init()
         {
             List<RGDialogsClients> L1 = new List<RGDialogsClients>();

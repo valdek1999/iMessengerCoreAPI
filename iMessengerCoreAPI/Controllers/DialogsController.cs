@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace iMessengerCoreAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/dialogs")]
     [ApiController]
     public class DialogsController : ControllerBase
     {
@@ -21,38 +21,56 @@ namespace iMessengerCoreAPI.Controllers
             _contextDialogs = contextDialogs;
         }
 
-        // GET: api/<DialogsController>
+        /// <summary>
+        /// Получить такой GUID диалога, в котором 
+        /// есть все переданные клиенты.
+        /// Если нет такого диалога -> возращается пустой GUID.
+        /// </summary>
+        /// <param name="clients">Список идентификаторов - GUID клиентов</param>
+        /// <returns>GUID идентификатор диалога</returns>
+        [HttpGet("dialogID")]
+        public ActionResult<Guid> GetDialogID([FromQuery] List<Guid> clients)
+        {
+            IRepositoryDialogs dialogs = _contextDialogs as RepositoryDialogs;
+            return dialogs.FindDialogID(clients);
+        }
+
+        /// <summary>
+        /// Получить список всех диалогов cвязанных с клиентами
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
-        public ActionResult<IEnumerable<RGDialogsClients>> Get()
+        public ActionResult<IEnumerable<RGDialogsClients>> GetAll()
         {
             IEnumerable<RGDialogsClients> dialogs = _contextDialogs.All;
-
             return Ok(dialogs);
         }
 
-        // GET api/<DialogsController>/5
-        [HttpGet("dialog/{id}")]
-        public string Get(Guid id)
-        {
-            return "value";
-        }
-
-        // POST api/<DialogsController>
+        /// <summary>
+        /// Добавить клиента в диалог
+        /// </summary>
+        /// <param name="rgDialogsClients">Объект хранящий какие пользователи 
+        /// взаимодействуют в рамках одного диалога</param>
+        /// <returns>Информация о клиенте и диалоге в который он вступил</returns>
         [HttpPost]
-        public void Post([FromBody] List<Guid> clients)
+        public ActionResult<RGDialogsClients> Post([FromBody] RGDialogsClients rgDialogsClients)
         {
+            return _contextDialogs.Add(rgDialogsClients);
         }
 
-        // PUT api/<DialogsController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+
+        /// <summary>
+        /// Удаляет клиента из диалога
+        /// </summary>
+        /// <param name="rgDialogsClients">Объект хранящий какие пользователи 
+        /// взаимодействуют в рамках одного диалога</param>
+        /// <returns></returns>
+        [HttpDelete]
+        public ActionResult Delete(RGDialogsClients rgDialogsClients)
         {
+            _contextDialogs.Delete(rgDialogsClients);
+            return Ok();
         }
 
-        // DELETE api/<DialogsController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
     }
 }

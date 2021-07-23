@@ -6,55 +6,72 @@ using System.Threading.Tasks;
 
 namespace iMessengerCoreAPI.Repository
 {
-    public class RepositoryDialogs : IRepository<RGDialogsClients>
+    public class RepositoryDialogs : IRepository<RGDialogsClients>, IRepositoryDialogs
     {
 
-        private readonly List<RGDialogsClients> _context;
-        public IEnumerable<RGDialogsClients> All => _context;
+        private readonly List<RGDialogsClients> _dialogContext;
+        public IEnumerable<RGDialogsClients> All => _dialogContext;
 
-        public int Count => _context.Count;
+        /// <summary>
+        /// Количество экземпляров RGDialogsClients
+        /// </summary>
+        public int Count => _dialogContext.Count;
         public RepositoryDialogs()
         {
-            _context = new RGDialogsClients().Init();
+            _dialogContext = new RGDialogsClients().Init();
         }
 
+        /// <summary>
+        /// Получить такой GUID диалога, в котором 
+        /// есть все переданные клиенты, участвующие в диалоге.
+        /// Если нет такого диалога -> возращается пустой GUID.
+        /// </summary>
+        /// <param name="clients"></param>
+        /// <returns></returns>
+        public Guid FindDialogID(List<Guid> clients)
+        {
+            var dialogs = _dialogContext.GroupBy(x => x.IDRGDialog);
+            foreach(var dialog in dialogs)
+            {
+                var countIntersect = dialog
+                    .Select(x => x.IDClient)
+                    .Intersect(clients)
+                    .Count();
+                if(clients.Count == countIntersect)
+                {
+                    return dialog.Key;
+                }
+            }
+            return new Guid();
+        }
+        /// <summary>
+        /// Добавить объект который хранит данные о том какой пользователь вступил в диалог.
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <returns></returns>
         public RGDialogsClients Add(RGDialogsClients entity)
         {
-            _context.Add(entity);
+            _dialogContext.Add(entity);
             //TODO: добавить в бд и сохранить
             return entity;
         }
-
-        public RGDialogsClients Add(string IDClient, string IDRGDialog)
-        {
-            var newDialogClient = new RGDialogsClients
-            {
-                IDUnique = Guid.NewGuid(),
-                IDRGDialog = new Guid(IDRGDialog),
-                IDClient = new Guid(IDClient)
-            };
-            _context.Add(newDialogClient);
-            //TODO: добавить в бд и сохранить
-            return newDialogClient;
-        }
-
+        /// <summary>
+        /// Удалить данные cущности - диалога с клиентом
+        /// </summary>
+        /// <param name="entity"></param>
         public void Delete(RGDialogsClients entity)
         {
-
+            //TODO: удалить из бд и сохранить
+            _dialogContext.Remove(entity);
         }
 
-        public IEnumerable<RGDialogsClients> FindAll(Func<RGDialogsClients, bool> predicate)
-        {
-            throw new NotImplementedException();
-        }
-
-        public RGDialogsClients FindById(int Id)
-        {
-            throw new NotImplementedException();
-        }
-
+        /// <summary>
+        /// Обновить данные сущности диалога с клиентом
+        /// </summary>
+        /// <param name="entity"></param>
         public void Update(RGDialogsClients entity)
         {
+            //TODO: допилить метод.
             throw new NotImplementedException();
         }
     }
