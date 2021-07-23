@@ -6,8 +6,7 @@ using System.Threading.Tasks;
 namespace iMessengerCoreAPI.Models
 {
     /// <summary>
-    /// Cущность RGDialogsClients. 
-    /// Она предназначена для хранения информации о том, какие пользователи взаимодействуют в рамках одного диалога.
+    /// Класс предназначен для хранения информации о том, какие пользователи взаимодействуют в рамках одного диалога.
     /// </summary>
     public class RGDialogsClients
     {

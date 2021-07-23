@@ -22,7 +22,7 @@ namespace iMessengerCoreAPI.Controllers
         }
 
         /// <summary>
-        /// Получить такой GUID диалога, в котором 
+        /// Позволяет получить такой GUID диалога, в котором 
         /// есть все переданные клиенты.
         /// Если нет такого диалога -> возращается пустой GUID.
         /// </summary>
@@ -35,7 +35,7 @@ namespace iMessengerCoreAPI.Controllers
         }
 
         /// <summary>
-        /// Получить список всех диалогов cвязанных с клиентами
+        /// Позволяет получить список всех диалогов cвязанных с клиентами
         /// </summary>
         /// <returns></returns>
         [HttpGet]
@@ -46,7 +46,7 @@ namespace iMessengerCoreAPI.Controllers
         }
 
         /// <summary>
-        /// Добавить клиента в диалог
+        /// Позволяет добавить клиента в диалог
         /// </summary>
         /// <param name="rgDialogsClients">Объект хранящий какие пользователи 
         /// взаимодействуют в рамках одного диалога</param>
@@ -59,7 +59,7 @@ namespace iMessengerCoreAPI.Controllers
 
 
         /// <summary>
-        /// Удаляет клиента из диалога
+        /// Позволяет удалить клиента из диалога
         /// </summary>
         /// <param name="rgDialogsClients">Объект хранящий какие пользователи 
         /// взаимодействуют в рамках одного диалога</param>
