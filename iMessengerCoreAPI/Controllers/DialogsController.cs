@@ -31,8 +31,7 @@ namespace iMessengerCoreAPI.Controllers
         [HttpGet("dialogID")]
         public ActionResult<Guid> GetDialogID([FromQuery] List<Guid> clients)
         {
-            IRepositoryDialogs dialogs = _contextDialogs as RepositoryDialogs;
-            return dialogs.FindDialogID(clients);
+            return Ok(_contextDialogs.FindDialogID(clients));
         }
 
         /// <summary>
@@ -55,7 +54,7 @@ namespace iMessengerCoreAPI.Controllers
         [HttpPost]
         public ActionResult<RGDialogsClients> Post([FromBody] RGDialogsClients rgDialogsClients)
         {
-            return _contextDialogs.Add(rgDialogsClients);
+            return Ok(_contextDialogs.Add(rgDialogsClients));
         }
 
 

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace iMessengerCoreAPI.Repository
 {
-    public class RepositoryDialogs : IRepository<RGDialogsClients>, IRepositoryDialogs
+    public class RepositoryDialogs : IRepository<RGDialogsClients>
     {
 
         private readonly List<RGDialogsClients> _dialogContext;

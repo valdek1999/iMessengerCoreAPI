@@ -15,5 +15,6 @@ namespace iMessengerCoreAPI.Repository
         void Delete(TEntity entity);
 
         void Update(TEntity entity);
+        public Guid FindDialogID(List<Guid> clients);
     }
 }
