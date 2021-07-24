@@ -30,7 +30,9 @@ namespace iMessengerCoreAPI.Repository
         /// <returns></returns>
         public Guid FindDialogID(List<Guid> clients)
         {
-            var dialogs = _dialogContext.GroupBy(x => x.IDRGDialog);
+            var dialogs = _dialogContext
+                .GroupBy(x => x.IDRGDialog)
+                .OrderBy(x=>x.Count());
             foreach(var dialog in dialogs)
             {
                 var countIntersect = dialog
